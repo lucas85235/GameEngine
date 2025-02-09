@@ -1,5 +1,4 @@
-### 📜 **README.md**  
-```md
+
 # 🛠️ GameEngine - A Basic C++ Game Engine
 
 This is a simple game engine written in C++ using GLFW and OpenGL. The project is structured to allow easy expansion, including rendering, input handling, resource management, and more.
@@ -119,7 +118,6 @@ This project is licensed under the **MIT License**.
 ---
 
 ## 📧 Contact
-If you have any questions or suggestions, reach out via [your email or GitHub profile].
+If you have any questions or suggestions, reach out via lucas85235@gmail.com
 
 ---
-```
