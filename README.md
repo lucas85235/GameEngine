@@ -66,19 +66,10 @@ cd GameEngine
 
 ---
 
-### **3️⃣ Build the Engine**
+### **3️⃣ Build and Run the Engine**
 ```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
----
-
-### **4️⃣ Run the Engine**
-```bash
-./GameEngine
+sudo chmod 777 build_and_run.sh
+./build_and_run.sh
 ```
 If everything is set up correctly, a **window should open**.
 
