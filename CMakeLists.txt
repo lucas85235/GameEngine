@@ -3,16 +3,9 @@ project(GameEngine)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(GameEngine
-    src/main.cpp
-    src/core/Engine.cpp
-    src/core/Window.cpp
-)
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+find_package(pybind11 REQUIRED)
 
-find_package(OpenGL REQUIRED)
+add_library(game_engine MODULE src/bindings.cpp src/core/Engine.cpp)
 
-add_subdirectory(third_party/glfw)
-
-# Linkando bibliotecas necessárias
-target_link_libraries(GameEngine glfw)
-target_link_libraries(GameEngine glfw OpenGL::GL)
+target_link_libraries(game_engine PRIVATE pybind11::module)

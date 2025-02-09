@@ -1,21 +1,25 @@
 #include "Engine.h"
 #include <iostream>
+#include <thread>
+#include <chrono>
+
+bool isRunning = true;
 
 Engine::Engine() {
-    window = new Window(800, 600, "Game Engine");
-    isRunning = true;
+    std::cout << "Engine initialized!\n";
 }
 
 Engine::~Engine() {
-    delete window;
+    std::cout << "Engine shutting down.\n";
 }
 
 void Engine::Run() {
-    while (isRunning && !window->ShouldClose()) {
-        window->PollEvents(); // Processa entrada do usuário
-
-        // Aqui vamos adicionar o sistema de renderização futuramente
-
-        window->SwapBuffers();
+    while (isRunning) {
+        std::cout << "Engine Running...\n";
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
+}
+
+void Engine::Stop() {
+    isRunning = false;
 }
