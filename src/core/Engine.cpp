@@ -14,10 +14,10 @@ Engine::~Engine() {
 
 void Engine::Run() {
     while (isRunning && !window->ShouldClose()) {
-        window->PollEvents(); // Processa entrada do usuário
+        window->PollEvents(); // Get user inputs
 
-        renderer->ClearScreen(); // Clear the screen
-        renderer->RenderTriangle(); // Render a triangle
+        renderer->ClearScreen();
+        renderer->RenderTriangle();
 
         window->SwapBuffers();
     }

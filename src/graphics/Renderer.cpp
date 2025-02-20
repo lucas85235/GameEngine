@@ -15,7 +15,7 @@ Renderer::Renderer() {
         return;
     }
 
-    // shader = new Shader("shaders/vertex_shader.vert", "shaders/fragment_shader.frag");
+    shader = new Shader("shaders/vertex_shader.vert", "shaders/fragment_shader.frag");
 
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -31,7 +31,7 @@ Renderer::Renderer() {
 }
 
 Renderer::~Renderer() {
-    // delete shader;
+    delete shader;
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
 }
@@ -42,8 +42,7 @@ void Renderer::ClearScreen() {
 }
 
 void Renderer::RenderTriangle() {
-    // shader->Use();
-    glUseProgram(0); // No shader yet, using default pipeline
+    shader->Use();
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }

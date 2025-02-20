@@ -8,7 +8,7 @@ public:
     Engine();
     ~Engine();
 
-    void Run(); // Loop principal do jogo
+    void Run();
 
 private:
     Window* window;
