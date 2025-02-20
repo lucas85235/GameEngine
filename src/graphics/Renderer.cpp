@@ -41,8 +41,15 @@ void Renderer::ClearScreen() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::RenderTriangle() {
+void Renderer::RenderTriangle(Camera& camera, float aspectRatio) {
     shader->Use();
+
+    glm::mat4 view = camera.GetViewMatrix();
+    glm::mat4 projection = camera.GetProjectionMatrix(aspectRatio);
+
+    shader->SetUniformMatrix4fv("view", &view[0][0]);
+    shader->SetUniformMatrix4fv("projection", &projection[0][0]);
+
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }

@@ -13,6 +13,7 @@ public:
 private:
     Window* window;
     Renderer* renderer;
+    Camera* camera;
     bool isRunning;
 };
 

@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Shader.h"
+#include "Camera.h"
 
 class Renderer {
 public:
@@ -11,7 +12,7 @@ public:
     ~Renderer();
 
     void ClearScreen();
-    void RenderTriangle();
+    void RenderTriangle(Camera& camera, float aspectRatio);
 
 private:
     GLuint VAO, VBO;

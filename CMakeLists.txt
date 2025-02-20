@@ -7,6 +7,7 @@ add_executable(GameEngine
     src/main.cpp
     src/core/Engine.cpp
     src/core/Window.cpp
+    src/graphics/Camera.cpp
     src/graphics/Renderer.cpp
     src/graphics/Shader.cpp
 )
