@@ -12,6 +12,7 @@ public:
 
 private:
     Window* window;
+    Renderer* renderer;
     bool isRunning;
 };
 
