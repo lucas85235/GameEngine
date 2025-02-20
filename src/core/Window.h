@@ -11,6 +11,7 @@ public:
     void PollEvents();
     void SwapBuffers();
     bool ShouldClose();
+    GLFWwindow* GetGLFWwindow();
 
 private:
     GLFWwindow* window;
