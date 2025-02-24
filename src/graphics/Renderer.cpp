@@ -1,12 +1,6 @@
 #include "Renderer.h"
 #include <iostream>
 
-const float vertices[] = {
-     0.0f,  0.5f, 0.0f,  
-    -0.5f, -0.5f, 0.0f,  
-     0.5f, -0.5f, 0.0f   
-};
-
 Renderer::Renderer() {
     std::cout << "Initializing Renderer..." << std::endl;
 
@@ -17,23 +11,11 @@ Renderer::Renderer() {
 
     shader = new Shader("shaders/vertex_shader.vert", "shaders/fragment_shader.frag");
 
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
     std::cout << "Renderer initialized successfully!" << std::endl;
 }
 
 Renderer::~Renderer() {
     delete shader;
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
 }
 
 void Renderer::ClearScreen() {
@@ -41,15 +23,14 @@ void Renderer::ClearScreen() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::RenderTriangle(Camera& camera, float aspectRatio) {
+void Renderer::RenderMesh(Mesh& mesh, Camera& camera, float aspectRatio) {
     shader->Use();
-
+ 
     glm::mat4 view = camera.GetViewMatrix();
     glm::mat4 projection = camera.GetProjectionMatrix(aspectRatio);
-
+ 
     shader->SetUniformMatrix4fv("view", &view[0][0]);
     shader->SetUniformMatrix4fv("projection", &projection[0][0]);
-
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+ 
+    mesh.Draw();
 }

@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include "Shader.h"
 #include "Camera.h"
+#include "Mesh.h"
 
 class Renderer {
 public:
@@ -12,10 +13,9 @@ public:
     ~Renderer();
 
     void ClearScreen();
-    void RenderTriangle(Camera& camera, float aspectRatio);
+    void RenderMesh(Mesh& mesh, Camera& camera, float aspectRatio);
 
 private:
-    GLuint VAO, VBO;
     Shader* shader;
 };
 

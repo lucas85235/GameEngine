@@ -31,6 +31,14 @@ Engine::~Engine() {
 
 // ------------------- Main Game Loop -------------------
 void Engine::Run() {
+    std::vector<Vertex> triangleVertices = {
+        {{ 0.0f,  0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f }}, // red
+        {{-0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f }}, // green
+        {{ 0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f }}  // blue
+    };
+ 
+    Mesh triangle(triangleVertices);
+
     while (isRunning && !window->ShouldClose()) {
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrameTime;
@@ -40,7 +48,7 @@ void Engine::Run() {
         ProcessInput();
 
         renderer->ClearScreen();
-        renderer->RenderTriangle(*camera, 1.5f);
+        renderer->RenderMesh(triangle, *camera, 1.5f);
 
         window->SwapBuffers();
     }

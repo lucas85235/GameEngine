@@ -10,6 +10,7 @@ add_executable(GameEngine
     src/graphics/Camera.cpp
     src/graphics/Renderer.cpp
     src/graphics/Shader.cpp
+    src/graphics/Mesh.cpp
 )
 
 find_package(OpenGL REQUIRED)
