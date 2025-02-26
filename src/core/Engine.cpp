@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "../graphics/ModelLoader.h"
 #include <iostream>
 
 // ------------------- Singleton Implementation -------------------
@@ -31,13 +32,12 @@ Engine::~Engine() {
 
 // ------------------- Main Game Loop -------------------
 void Engine::Run() {
-    std::vector<Vertex> triangleVertices = {
-        {{ 0.0f,  0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f }}, // red
-        {{-0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f }}, // green
-        {{ 0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f }}  // blue
-    };
- 
-    Mesh triangle(triangleVertices);
+    Mesh* model = ModelLoader::LoadOBJ("assets/models/Lowpoly_tree_sample.obj");
+
+    if (!model) {
+        std::cerr << "❌ Falha ao carregar o modelo." << std::endl;
+        return;
+    }
 
     while (isRunning && !window->ShouldClose()) {
         float currentFrame = glfwGetTime();
@@ -48,7 +48,7 @@ void Engine::Run() {
         ProcessInput();
 
         renderer->ClearScreen();
-        renderer->RenderMesh(triangle, *camera, 1.5f);
+        renderer->RenderMesh(model, *camera, 1.5f);
 
         window->SwapBuffers();
     }

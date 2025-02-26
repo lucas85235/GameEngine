@@ -13,7 +13,7 @@ public:
     ~Renderer();
 
     void ClearScreen();
-    void RenderMesh(Mesh& mesh, Camera& camera, float aspectRatio);
+    void RenderMesh(Mesh *mesh, Camera& camera, float aspectRatio);
 
 private:
     Shader* shader;

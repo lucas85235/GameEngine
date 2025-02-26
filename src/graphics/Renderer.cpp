@@ -23,7 +23,7 @@ void Renderer::ClearScreen() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::RenderMesh(Mesh& mesh, Camera& camera, float aspectRatio) {
+void Renderer::RenderMesh(Mesh *mesh, Camera& camera, float aspectRatio) {
     shader->Use();
  
     glm::mat4 view = camera.GetViewMatrix();
@@ -32,5 +32,5 @@ void Renderer::RenderMesh(Mesh& mesh, Camera& camera, float aspectRatio) {
     shader->SetUniformMatrix4fv("view", &view[0][0]);
     shader->SetUniformMatrix4fv("projection", &projection[0][0]);
  
-    mesh.Draw();
+    mesh->Draw();
 }

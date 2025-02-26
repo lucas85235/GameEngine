@@ -20,7 +20,6 @@ cmake ..
 
 # # Compile the project
 make -j$(nproc)
-
 echo "✅ Build successful!"
 
 # # Run the application

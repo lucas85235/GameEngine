@@ -11,19 +11,18 @@ add_executable(GameEngine
     src/graphics/Renderer.cpp
     src/graphics/Shader.cpp
     src/graphics/Mesh.cpp
+    src/graphics/ModelLoader.cpp
 )
 
-find_package(OpenGL REQUIRED)
+add_subdirectory(deps/tinyobjloader)
 
-include_directories(${CMAKE_SOURCE_DIR}/libs/glad/include)
-add_library(glad STATIC libs/glad/src/glad.c)
-target_include_directories(glad PUBLIC libs/glad/include)
-
-# add_subdirectory(third_party/glfw)
+include_directories(${CMAKE_SOURCE_DIR}/deps/glad/include)
+add_library(glad STATIC deps/glad/src/glad.c)
+target_include_directories(glad PUBLIC deps/glad/include)
 
 # Link libraries
 target_link_libraries(GameEngine 
     glfw
-    OpenGL::GL
     glad
+    tinyobjloader
 )
