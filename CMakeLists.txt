@@ -1,24 +1,24 @@
-cmake_minimum_required(VERSION 3.20)
-project(GameEngine C CXX)
+cmake_minimum_required(VERSION 3.2)
+project(GameEngine LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(GameEngine
-    src/main.cpp
-    src/core/Engine.cpp
-    src/core/Window.cpp
-    src/graphics/Camera.cpp
-    src/graphics/Renderer.cpp
-    src/graphics/Shader.cpp
-    src/graphics/Mesh.cpp
-    src/graphics/ModelLoader.cpp
+file(GLOB ROOT_SOURCE
+    "${PROJECT_SOURCE_DIR}/src/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/core/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/graphics/*.cpp"
 )
 
-add_subdirectory(deps/tinyobjloader)
+add_executable(GameEngine
+    ${ROOT_SOURCE}
+)
 
-include_directories(${CMAKE_SOURCE_DIR}/deps/glad/include)
-add_library(glad STATIC deps/glad/src/glad.c)
-target_include_directories(glad PUBLIC deps/glad/include)
+add_subdirectory(deps)
+
+# copy all files on assets on the build folder
+# file(COPY assets/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 # Link libraries
 target_link_libraries(GameEngine 
