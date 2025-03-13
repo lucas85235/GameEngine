@@ -10,9 +10,13 @@ Engine& Engine::Instance() {
 
 // ------------------- Constructor and Destructor -------------------
 Engine::Engine() : lastX(400), lastY(300), firstMouse(true) {
-    window = new Window(1920, 1080, "Game Engine");
-    renderer = new Renderer();
-    camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f)); 
+    WindowProperties props;
+    props.screenX = 1920;
+    props.screenY = 1080;
+    props.title = "Game Engine";
+
+    window = new Window(props);
+    camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
     isRunning = true;
 
     glfwSetKeyCallback(window->GetGLFWwindow(), KeyCallback);
@@ -20,12 +24,9 @@ Engine::Engine() : lastX(400), lastY(300), firstMouse(true) {
     glfwSetScrollCallback(window->GetGLFWwindow(), ScrollCallback);
 
     glfwSetInputMode(window->GetGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
-    lastFrameTime = 0.0f;
 }
 
 Engine::~Engine() {
-    delete renderer;
     delete camera;
     delete window;
 }
@@ -39,18 +40,17 @@ void Engine::Run() {
         return;
     }
 
-    while (isRunning && !window->ShouldClose()) {
+    while (isRunning && window->IsGL()) {
         float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrameTime;
-        lastFrameTime = currentFrame;
 
-        window->PollEvents(); // Get user inputs
+        window->UpdateGL(); // Get user inputs
         ProcessInput();
 
-        renderer->ClearScreen();
-        renderer->RenderMesh(model, *camera, 1.5f);
+        // todo: Remove or improve this
+        window->ClearScreen();
+        window->RenderMesh(model, *camera, 1.5f);
 
-        window->SwapBuffers();
+        window->RenderGL();
     }
 }
 
@@ -60,7 +60,7 @@ void Engine::Stop() {
 
 // ------------------- Input Handling -------------------
 void Engine::ProcessInput() {    
-    float velocity = 2.5f * deltaTime;
+    float velocity = 2.5f * window->getDelta();
 
     canRotateCamera = glfwGetMouseButton(window->GetGLFWwindow(), 0);
 

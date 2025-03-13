@@ -1,20 +1,46 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "../graphics/Renderer.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include "../graphics/Shader.h"
+#include "../graphics/Camera.h"
+#include "../graphics/Mesh.h"
+
+struct WindowProperties {
+    int screenX = -1;
+    int screenY = -1;
+    const char* title = "";
+};
 
 class Window {
 public:
-    Window(int width, int height, const char* title);
+    Window(WindowProperties _properties = WindowProperties());
     ~Window();
 
-    void PollEvents();
-    void SwapBuffers();
-    bool ShouldClose();
+    //	GL Context
+    //----------------------------------------------
+    int         InitGL();
+    bool        IsGL();
+    void        UpdateGL();
+    void        RenderGL();
+    void        CloseGL();
     GLFWwindow* GetGLFWwindow();
 
+    // TIME
+    // ---------------------------------------
+    double      getTimeSec();
+    double      getTime();
+    double      getDelta();
+
+    // todo: to remove later
+    void ClearScreen();
+    void RenderMesh(Mesh *mesh, Camera& camera, float aspectRatio);
+
 private:
+    WindowProperties properties;
     GLFWwindow* window;
+    Shader* shader;
 };
 
 #endif

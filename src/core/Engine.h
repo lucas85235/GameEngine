@@ -22,13 +22,9 @@ private:
     Engine& operator=(const Engine&) = delete;   // Proíbe atribuição
 
     Window* window;
-    Renderer* renderer;
     Camera* camera;
 
     bool isRunning;
-
-    float lastFrameTime;
-    float deltaTime;
 
     float lastX;
     float lastY;
