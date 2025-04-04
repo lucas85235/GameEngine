@@ -21,9 +21,7 @@ public:
 
 private:
     GLuint CompileShader(const char* source, GLenum type);
-    std::string ReadFile(const char* filePath);
     void CheckCompileErrors(GLuint shader, std::string type);
-    std::filesystem::path GetProjectRoot();
 };
 
 #endif

@@ -1,12 +1,12 @@
 #include "Shader.h"
 #include <iostream>
 #include <fstream>
-#include <sstream>
+#include "utils/Utils.h"
 
 // Constructor: Load, compile, and link shaders
 Shader::Shader(const char* vertexPath, const char* fragmentPath) {
-    std::string vertexCode = ReadFile(vertexPath);
-    std::string fragmentCode = ReadFile(fragmentPath);
+    std::string vertexCode = Utils::ReadFile(vertexPath);
+    std::string fragmentCode = Utils::ReadFile(fragmentPath);
 
     GLuint vertexShader = CompileShader(vertexCode.c_str(), GL_VERTEX_SHADER);
     GLuint fragmentShader = CompileShader(fragmentCode.c_str(), GL_FRAGMENT_SHADER);
@@ -31,23 +31,6 @@ Shader::~Shader() {
 // Activate the shader program
 void Shader::Use() {
     glUseProgram(ID);
-}
-
-// Utility function to read shader file
-std::string Shader::ReadFile(const char* filePath) {
-    std::ifstream file;
-    std::stringstream content;
-
-    auto root = GetProjectRoot();
-    file.open(root / filePath);
-    if (!file.is_open()) {
-        std::cerr << "ERROR::SHADER::FILE_NOT_FOUND: " << filePath << std::endl;
-        return "";
-    }
-    content << file.rdbuf();
-    file.close();
-    
-    return content.str();
 }
 
 // Compile shader function
@@ -90,18 +73,4 @@ void Shader::SetUniform3f(const std::string& name, float x, float y, float z) {
 
 void Shader::SetUniformMatrix4fv(const std::string& name, const float* matrix) {
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, matrix);
-}
-
-std::filesystem::path Shader::GetProjectRoot() {
-    std::filesystem::path currentPath = std::filesystem::current_path();
-
-    while (currentPath.has_parent_path()) {
-        if (std::filesystem::exists(currentPath / "shaders")) {
-            return currentPath;
-        }
-        currentPath = currentPath.parent_path();
-    }
-
-    std::cerr << "Error: can't find project root path!" << std::endl;
-    return std::filesystem::current_path();
 }

@@ -2,13 +2,17 @@
 file(GLOB ROOT_SOURCE
     "${PROJECT_SOURCE_DIR}/src/core/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/graphics/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/utils/*.cpp"
 )
 
 # Create lib
 add_library(EngineCore ${ROOT_SOURCE})
 
 # Find Includes
-target_include_directories(EngineCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../includes)
+target_include_directories(EngineCore PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/../includes
+        ${CMAKE_CURRENT_SOURCE_DIR}/../includes/utils
+)
 
 # Link libraries
 target_link_libraries(EngineCore 
