@@ -1,5 +1,5 @@
 #include "Engine.h"
-#include "../graphics/ModelLoader.h"
+#include "ModelLoader.h"
 #include <iostream>
 
 // ------------------- Singleton Implementation -------------------

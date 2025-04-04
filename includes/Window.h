@@ -3,9 +3,9 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "../graphics/Shader.h"
-#include "../graphics/Camera.h"
-#include "../graphics/Mesh.h"
+#include "Shader.h"
+#include "Camera.h"
+#include "Mesh.h"
 
 struct WindowProperties {
     int screenX = -1;
